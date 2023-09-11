@@ -110,4 +110,4 @@ To start using this API, you'll need to follow these steps:
 ## Deploy
 
 To deploy the entire application, ensure that you have Docker and Docker Compose installed on your operating system. Once installed, navigate to the root directory of the project and run the following command: `docker-compose up -d`. 
-This command initiates the deployment process. It starts both the Django project and a PostgreSQL container, making them readily available for use. Additionally, the deployment includes a script that populates specific tables in the Ecommerce database, providing essential data for the application.
+This command initiates the deployment process, it starts both the Django project and a PostgreSQL container, making them readily available for be used. Additionally, the deployment includes a script that populates specific tables in the Ecommerce database, providing essential data for the application.
