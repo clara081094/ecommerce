@@ -19,6 +19,7 @@ services:
     ports:
       - "8000:8000" 
     environment:
+      - DRIVER=django.db.backends.postgresql_psycopg2
       - NAME=ecommerce
       - USER_DB=postgres
       - PASSWORD=postgres
