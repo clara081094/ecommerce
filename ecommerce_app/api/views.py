@@ -78,9 +78,9 @@ def update_cart_item_quantity(request, cart_id, product_id):
         if not existing_cart:
             raise ExceptionParams(errors = "Cart not found", status_code=400)
         
-        existing_product = Product.objects.filter(id = product_id).first()
+        existing_product = ProductCart.objects.filter(id = product_id).first()
         if not existing_product:
-            raise ExceptionParams(errors = "Product not found", status_code=400)
+            raise ExceptionParams(errors = "Product not found in cart", status_code=400)
         
         cart_product = ProductCart.objects.filter(cart = existing_cart,product = existing_product).first()
         cart_product.quantity += new_quantity
