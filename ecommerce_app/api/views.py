@@ -154,6 +154,7 @@ def order(request):
                 total_shipping = total_shipping,
                 total_order = total_amount - total_shipping
             )
+            new_order.save()
 
             return Response(OrderSerializer(new_order).data, status=status.HTTP_201_CREATED)
         raise ExceptionParams(order_serializer.errors, status_code=400)
