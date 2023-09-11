@@ -78,14 +78,13 @@ def update_cart_item_quantity(request, cart_id, product_id):
         if not existing_cart:
             raise ExceptionParams(errors = "Cart not found", status_code=400)
         
-        existing_product = ProductCart.objects.filter(id = product_id).first()
+        existing_product = ProductCart.objects.filter(product__id = product_id).first()
         if not existing_product:
             raise ExceptionParams(errors = "Product not found in cart", status_code=400)
-        
-        cart_product = ProductCart.objects.filter(cart = existing_cart,product = existing_product).first()
-        cart_product.quantity += new_quantity
-        cart_product.save()
-        return Response(CartItemSerializer(cart_product).data, status=status.HTTP_201_CREATED)
+        existing_product.quantity = new_quantity
+        existing_product.save()
+
+        return Response(CartItemSerializer(existing_product).data, status=status.HTTP_201_CREATED)
         
     else:
         raise ExceptionParams(errors= cart_serializer.errors)
