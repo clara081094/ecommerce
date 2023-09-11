@@ -1,0 +1,30 @@
+version: '3'
+
+services:
+  db:
+      image: postgres:13
+      container_name: postgres-db
+      environment:
+        POSTGRES_DB: ecommerce
+        POSTGRES_USER: postgres
+        POSTGRES_PASSWORD: postgres
+      ports:
+        - "5432:5432"
+
+  web:
+    image: python:3.10
+    container_name: django-ecommerce
+    volumes:
+      - ./:/app 
+    ports:
+      - "8000:8000" 
+    environment:
+      - NAME=ecommerce
+      - USER_DB=postgres
+      - PASSWORD=postgres
+      - HOST=db
+      - PORT=5432
+
+    command: bash -c "pip install -r app/requirements.txt && python app/manage.py makemigrations && python app/manage.py migrate && python app/manage.py seed_data && python app/manage.py runserver 0.0.0.0:8000"
+    depends_on:
+      - db

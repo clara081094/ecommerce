@@ -1,21 +1,35 @@
 from pathlib import Path
+import environ
 
-BASE_DIR = Path(__file__).resolve().parent.parent
+BASE_DIR = Path(__file__).resolve().parent.parent.parent
+
+print(BASE_DIR)
+env = environ.Env()
+
 
 SECRET_KEY = 'django-insecure-acb$@(ndkbnh@k#_db#2wnh((4%*75mnry()&gfe_!i#%#!1wh'
+env.read_env(str(BASE_DIR / ".env"))
 
 DEBUG = True
 
 ALLOWED_HOSTS = []
 
-INSTALLED_APPS = [
-    #'django.contrib.admin',
+BASE_APPS = [
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
 ]
+LOCAL_APPS = [
+    "ecommerce_app",
+]
+
+THIRD_APPS = [
+    "rest_framework"
+]
+
+INSTALLED_APPS = BASE_APPS + LOCAL_APPS + THIRD_APPS
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -27,7 +41,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-ROOT_URLCONF = 'ecommerce_poc.urls'
+ROOT_URLCONF = 'config.urls'
 
 TEMPLATES = [
     {
@@ -45,15 +59,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'ecommerce_poc.wsgi.application'
-
-
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
-}
+WSGI_APPLICATION = 'config.wsgi.application'
 
 
 AUTH_PASSWORD_VALIDATORS = [
